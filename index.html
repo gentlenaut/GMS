@@ -117,7 +117,7 @@ window.imgFallback = function (el) {
       </div>
       <div class="card" style="border:1px solid #e3e8ee;border-top:3px solid #0f2a4a;padding:30px 28px;background:#fff">
         <img src="uploads/fi_15597299.svg" alt="" style="width:46px;height:46px;margin-bottom:16px;display:block"><h3 style="margin:0;font-size:19px;font-weight:600;color:#0f2a4a">Ownership &amp; Activism</h3>
-        <p style="margin:14px 0 0;font-size:14.5px;line-height:1.7;color:#4a5568">Depending on nature of investment (passive for fund investment; potential for influence in other VC/Venture Building investments.</p>
+        <p style="margin:14px 0 0;font-size:14.5px;line-height:1.7;color:#4a5568">Depending on nature of investment (passive for fund investments; potential for influence in other VC/Venture Building investments.</p>
       </div>
       <div class="card" style="border:1px solid #e3e8ee;border-top:3px solid #0f2a4a;padding:30px 28px;background:#fff">
         <img src="uploads/fi_19013084.svg" alt="" style="width:46px;height:46px;margin-bottom:16px;display:block"><h3 style="margin:0;font-size:19px;font-weight:600;color:#0f2a4a">Transaction Size</h3>
@@ -165,7 +165,7 @@ window.imgFallback = function (el) {
       </div>
       <div class="card" style="border:1px solid #e3e8ee;border-top:3px solid #2e6da4;padding:30px 28px;background:#fff">
         <img src="uploads/fi_15597299-1.svg" alt="" style="width:46px;height:46px;margin-bottom:16px;display:block"><h3 style="margin:0;font-size:19px;font-weight:600;color:#0f2a4a">Ownership &amp; Activism</h3>
-        <p style="margin:14px 0 0;font-size:14.5px;line-height:1.7;color:#4a5568">Depending on nature of investment (passive for fund investment; potential for influence in other VC/Venture Building investments.</p>
+        <p style="margin:14px 0 0;font-size:14.5px;line-height:1.7;color:#4a5568">Depending on nature of investment (passive for fund investments; potential for influence in other VC/Venture Building investments.</p>
       </div>
     </div>
   </div>
@@ -286,7 +286,7 @@ window.imgFallback = function (el) {
         <p style="margin:16px 0 0;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#2e6da4">View Bio →</p>
       </div>
       <div class="card" data-member="david" style="cursor:pointer;background:#fff;border:1px solid #e3e8ee;border-radius:6px;padding:36px 24px;text-align:center">
-        <div style="width:132px;height:132px;margin:0 auto 20px"><img src="uploads/slot-team-david.webp" alt="David Braus" style="width:100%;height:100%;object-fit:cover;border-radius:50%"></div>
+        <div style="width:132px;height:132px;margin:0 auto 20px"><div style="width:100%;height:100%;border-radius:50%;background:#e8edf3;display:flex;align-items:center;justify-content:center;color:#0f2a4a;font-size:38px;font-weight:600;letter-spacing:.02em">DB</div></div>
         <h3 style="margin:0;font-size:18px;font-weight:600;color:#0f2a4a">David Braus</h3>
         <p style="margin:8px 0 0;font-size:13px;color:#6b7788">Legal Advisor</p>
         <p style="margin:16px 0 0;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#2e6da4">View Bio →</p>
@@ -303,7 +303,7 @@ window.imgFallback = function (el) {
     </div>
     <div style="padding:6px clamp(28px,5vw,52px) 56px">
       <div style="display:flex;align-items:center;gap:26px;flex-wrap:wrap">
-        <div style="width:120px;height:120px;flex:0 0 auto"><img id="member-photo" src="" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%"></div>
+        <div id="member-photo-wrap" style="width:120px;height:120px;flex:0 0 auto"></div>
         <div>
           <h3 id="member-name" style="margin:0;font-size:clamp(26px,3vw,32px);font-weight:400;color:#0f2a4a"></h3>
           <p id="member-title" style="margin:12px 0 0;font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#2e6da4"></p>
@@ -407,7 +407,7 @@ window.imgFallback = function (el) {
     david: {
       name: 'David Braus',
       title: 'Legal Advisor',
-      photo: 'uploads/slot-team-david.webp',
+      photo: '',
       paras: [
         "David Braus has provided highly valued legal and business counseling for numerous international companies for decades. As general counsel and a board member who has served scores of companies throughout the United States, the Middle East, Europe and Asia, he has overseen a multitude of legal issues involving cross-border transactions, compliance matters, litigation and all facets of corporate and business law, often in highly regulated industries. Mr. Braus has served as general counsel to disparate entities from venture capital groups, government contractors, and technology companies to French fashion houses, addressing greenfield, restructurings and mature businesses undertakings.",
         "Mr. Braus is currently licensed to practice law in the Commonwealth of Virginia, the District of Columbia and the State of New Jersey and also licensed to appear in numerous state and Federal courts, including the Supreme Court of the United States.",
@@ -420,8 +420,18 @@ window.imgFallback = function (el) {
   function openMember(key) {
     var m = bios[key];
     if (!m) return;
-    document.getElementById('member-photo').src = m.photo;
-    document.getElementById('member-photo').alt = m.name;
+    var wrap = document.getElementById('member-photo-wrap');
+    if (m.photo) {
+      var img = document.createElement('img');
+      img.src = m.photo;
+      img.alt = m.name;
+      img.setAttribute('style', 'width:100%;height:100%;object-fit:cover;border-radius:50%');
+      wrap.innerHTML = '';
+      wrap.appendChild(img);
+    } else {
+      var initials = m.name.split(/\s+/).map(function (w) { return w.charAt(0); }).slice(0, 2).join('').toUpperCase();
+      wrap.innerHTML = '<div style="width:100%;height:100%;border-radius:50%;background:#e8edf3;display:flex;align-items:center;justify-content:center;color:#0f2a4a;font-size:34px;font-weight:600">' + initials + '</div>';
+    }
     document.getElementById('member-name').textContent = m.name;
     document.getElementById('member-title').textContent = m.title;
     var bio = document.getElementById('member-bio');
